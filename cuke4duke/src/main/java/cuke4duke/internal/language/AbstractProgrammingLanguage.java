@@ -67,6 +67,10 @@ public abstract class AbstractProgrammingLanguage implements ProgrammingLanguage
         languageMixin.add_hook("after", after);
     }
 
+    public void addAfterAllHook(Hook afterAll) {
+        languageMixin.add_hook("after_all",afterAll);
+    }
+
     protected abstract void begin_scenario(Scenario scenario) throws Throwable;
 
     public abstract void end_scenario() throws Throwable;

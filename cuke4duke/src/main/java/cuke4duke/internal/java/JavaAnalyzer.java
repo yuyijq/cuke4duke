@@ -1,9 +1,6 @@
 package cuke4duke.internal.java;
 
-import cuke4duke.annotation.After;
-import cuke4duke.annotation.Before;
-import cuke4duke.annotation.Order;
-import cuke4duke.annotation.Transform;
+import cuke4duke.annotation.*;
 import cuke4duke.internal.Utils;
 import cuke4duke.internal.java.annotation.StepDef;
 import cuke4duke.internal.jvmclass.ClassAnalyzer;
@@ -78,6 +75,16 @@ public class JavaAnalyzer implements ClassAnalyzer {
                 tagExpressions = NO_TAGS;
             }
             classLanguage.addAfterHook(new JavaHook(classLanguage, method, Arrays.asList(tagExpressions)));
+        }
+    }
+
+    private void registerAfterALlMaybe(Method method, ClassLanguage classLanguage) {
+        if (method.isAnnotationPresent(AfterAll.class)) {
+            String[] tagExpressions = method.getAnnotation(AfterAll.class).value();
+            if ("".equals(tagExpressions[0])) {
+                tagExpressions = NO_TAGS;
+            }
+            classLanguage.addAfterAllHook(new JavaHook(classLanguage, method, Arrays.asList(tagExpressions)));
         }
     }
 
